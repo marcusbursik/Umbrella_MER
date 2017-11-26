@@ -1,0 +1,26 @@
+Version: 0.4
+Date: 26 November 2017
+Coding: Rose M. Rustowicz, Solene Pouget, Marcus Bursik
+Concept: Solene Pouget, Emile Jansons, Marcus Bursik
+Contact: Marcus Bursik mib@buffalo.edu
+
+Version 0.4:
+
+Mostly added functionality to estimate a non-varying mass flux value, check better for 
+cloud behavior, estimate eruption duration, and estimate uncertainty.
+
+Version 0.3:
+
+Fixed some bugs so that makes transition from umbrella to downwind plume correctly, getting
+path correctly, and in computing power-law exponents for area rather than radius in
+curve fits.
+
+Version 0.1, 0.2:
+
+At present, there are two main functionalities contained within the modules / programs. 
+The first is concerned with estimation of the mass eruption rate (MER) from satellite-based, 
+plume growth data. The second is concerned with a calculation of the shape of the plume.  This
+algorithm allows for the generation of the measurements of minimum and maximum axes of a
+plume to determine its degree of elongation, hence whether it is acting as an umbrella cloud 
+or a downwind plume.
+
