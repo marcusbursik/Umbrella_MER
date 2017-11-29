@@ -12,7 +12,7 @@ import numpy as np		# numpy for array operations
 import math				# math operations
 import cv2				# image processing operations
 
-def get_diameters(count,contours, im, x_com, y_com, radii, cur_x0, cur_y0, km_per_pixel=4.75):
+def get_diameters(count,contours, im, x_com, y_com, radii, cur_x0, cur_y0, km_per_pixel):
 	"""
         Description: This function gets the minimum and maximum diameters 
           from a set of radii to the center of mass of a volcanic cloud. It converts 

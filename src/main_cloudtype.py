@@ -39,11 +39,11 @@ if __name__ == '__main__':
 	# Specify the needed input filenames
 
 	# Filename containing majority of data
-	data_filename = path[:-4] + '/test/' + 'test_downwind.ssv'
+	data_filename = path[:-4] + '/test/' + 'test_agung.ssv'
 
     # Filename containing the start time of the eruption, in form ?YYDDDMMHHSS
-	# start_filename = 'None'
-        start_filename = path[:-4] + '/test/' + 'start_downwind.txt'
+	start_filename = 'None'
+       # start_filename = path[:-4] + '/test/' + 'start_downwind.txt'
 
     
 	# Specify the needed output filenames
