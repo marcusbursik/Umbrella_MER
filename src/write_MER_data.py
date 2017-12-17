@@ -10,7 +10,7 @@ Contact: Marcus Bursik mib@buffalo.edu
 import numpy as np			# numpy for array operations
 import csv					# for reading/writing csv files
 
-def write_MER_data(tss, A, MERpl, MERpli, MERpa, MERpai, cloudtype, MER_csv_file):
+def write_MER_data(tss, A, maxPh, Ph, rhobar, rhogas, MERpa, mass, cloudtype, MER_csv_file):
     """
     .csv file =  write_MER_data(tss, A, MERpl, MERpli, MERpa, MERpai, cloudtype, MER_csv_file):
 
@@ -44,10 +44,10 @@ def write_MER_data(tss, A, MERpl, MERpli, MERpa, MERpai, cloudtype, MER_csv_file
     # Assign each column in the matrix to a different vector of values
     matrix_of_results[:,0] = tss
     matrix_of_results[:,1] = A
-    matrix_of_results[:,2] = MERpl
-    matrix_of_results[:,3] = MERpli
+    matrix_of_results[:,2] = maxPh - Ph
+    matrix_of_results[:,3] = rhobar - rhogas
     matrix_of_results[:,4] = MERpa
-    matrix_of_results[:,5] = MERpai
+    matrix_of_results[:,5] = mass
     matrix_of_results[:,6] = cloudtype
 
     # Create the file that will be written to
@@ -56,7 +56,7 @@ def write_MER_data(tss, A, MERpl, MERpli, MERpa, MERpai, cloudtype, MER_csv_file
     f = open(MER_csv_file, 'w')
     writer = csv.writer(f)
     # Specify headers for the columns
-    writer.writerow(['time(s)', 'Area (M^2)', 'MER of plume (kg/s)', 'Mass in plume (kg), if inst.', 'MER ash particles (kg/s)', 'Mass ash particles (kg), if inst.', 'cloudtype'])
+    writer.writerow(['time(s)', 'Area (M^2)', 'Cloud depth, m', 'Particle field density, kg/cu m', 'MER ash particles (kg/s)', 'Cum. mass ash (kg)', 'cloudtype'])
     # Write about the values in the matrix, row-by-row
     for values in matrix_of_results:
         writer.writerow(values)

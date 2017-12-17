@@ -1,7 +1,7 @@
 """
 Name: get_info_from_txt
-Version: 0.1
-Date: 11 August 2015
+Version: 0.41
+Date: 07 December 2017
 Author: Rose M. Rustowicz, Solene Pouget, Marcus Bursik
 Concept: Solene Pouget, Emile Jansons, Marcus Bursik
 Contact: Marcus Bursik mib@buffalo.edu
@@ -11,7 +11,7 @@ import numpy as np			# numpy for array operations
 
 def get_info_from_txt(data_filename, delimeter = ' '):
     """
-    [treal_string, treal, A, D1, D2, Ph, Tb, maxPh, maxT, Vt, Z, Pp, uk, u] = get_info_from_txt(data_filename, delimeter = ' ')
+    [treal_string, treal, A, D1, D2, Ph, Tb, P0, maxPh, maxT, Pp, Z, uk, u] = get_info_from_txt(data_filename, delimeter = ' ')
     
     Description: This function opens a text file to 
      get information from previous algorithms or from radionde data, 
@@ -28,24 +28,24 @@ def get_info_from_txt(data_filename, delimeter = ' '):
 
     Output:
       'treal_string' - A string of the time the image was taken, 
-        preserves '0' characters (YYYYDDDHHMMSS)
+        preserves '0' characters (YYYYOODDHHMMSS)
       'treal' - Vector of time at which each image was taken
         (will not follow format above bc float)
       'A' - Vector of area of the ash cloud in each image, as detected 
-        by APES or otherwise (km^2)
-      'D1' - Vector of diameter measurements of the ash cloud in each 
+        by forecaster or COTAC or otherwise (km^2)
+      'D1' - Vector of long diameter measurements of the ash cloud in each 
         image (km)
-      'D2' - Vector of diameter measurements of the ash cloud in each 
-        image (km)
+      'D2' - Vector of short, orthogonal diameter measurements of the ash 
+        cloud in eachimage (km)
       'Ph' - Vector of plume spreading height at the level of neutral 
         buoyancy  (m)
       'Tb' - Vector of plume spreading temperature at the level of neutral 
         buoyancy, "brightness temperature" in each image (K)
+      'P0' - Vector of pressure at that height (K), from radiosonde, hPa
       'maxPh' - Vector of maximum plume height (m) 
-      'maxt' - Vector of temperature at maximum plume height (K)
-      'Vt' - Vector of virtual potential temperature at that height (K)
-      'Z' - Vector of height at which pressure and windspeed are known (m)
-      'Pp' - Vector of pressure of plume  at Z from NWP, radiosonde, etc.(hpa)
+      'maxt' - Vector of brightness temperature at maximum plume height (K)
+      'Pp' - Vector of pressure of plume  at maxPh from NWP, radiosonde, etc.(hPa)
+      'Z' - Vector of height at which windspeed is known (m)
       'uk' - Vector of wind speed in knots at Z (knots)
       'u' - Vector of wind speed in m/s at Z (m/s)
     """
@@ -81,17 +81,19 @@ def get_info_from_txt(data_filename, delimeter = ' '):
     A =  data_matrix[-15:,1]            # Area of plume (km^2)
     D1 = data_matrix[-15:,2]            # Diameter 1 (km)
     D2 = data_matrix[-15:,3]            # Diameter 2 (km)
-    Ph = data_matrix[-15:,4]            # Plume spreading height (m)
-    Tb = data_matrix[-15:,5]            # Plume brightness temperature (K)
-    maxPh = data_matrix[-15:,6]         # Max plume height (m)
-    maxT = data_matrix[-15:, 7]         # Max plume temp at height maxPh (K)
-    Vt = data_matrix[-15:,8]            # Virtual potential temp (K)
-    Z = data_matrix[-15:,9]             # Altitude (m)
-    Pp = data_matrix[-15:,10]           # Plume pressure (hPa)
+    Ph = data_matrix[-15:,4] * 0.3048   # Plume spreading height (input ft -> m)
+    Tb = data_matrix[-15:,5] + 273.15   # Plume brightness temperature (input C -> K)
+    P0 = data_matrix[-15:,6]            # Pressure at height Ph (hPa)
+    maxPh = data_matrix[-15:, 7] * 0.3048 # Max plume height where maxT (input ft -> m)
+    maxT = data_matrix[-15:,8] + 273.15 # (Min) temp at maxPh (input C -> K)
+    Pp = data_matrix[-15:,9]            # Pressure at maxPh (hPa)
+    Z = data_matrix[-15:,10] * 0.3048   # Plume height where wind speed measured (input ft -> m)
     uk = data_matrix[-15:,11]           # Wind speed (knots)
 
     f.close()                           # close file
 
+    # Legacy
     u = uk * 514444./1000000.           # Wind speed (m/s)
 
-    return treal_string, treal, A, D1, D2, Ph, Tb, maxPh, maxT, Vt, Z, Pp, uk, u
+    # print treal_string, treal, A, D1, D2, Ph, Tb, P0, maxPh, maxT, Pp, Z, uk, u
+    return treal_string, treal, A, D1, D2, Ph, Tb, P0, maxPh, maxT, Pp, Z, uk, u

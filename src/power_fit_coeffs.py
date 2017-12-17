@@ -1,7 +1,7 @@
 """
 Name: power_fit_coeffs
-Version: 0.3
-Date: 24 November 2017
+Version: 0.5
+Date: 13 December 2017
 Author: Rose M. Rustowicz, Solene Pouget, Marcus Bursik
 Concept: Solene Pouget, Emile Jansons, Marcus Bursik
 Contact: Marcus Bursik mib@buffalo.edu
@@ -130,7 +130,9 @@ def power_fit_coeffs(A,tss,cloudtype):
 
     # Now plot!
 
-    plt.plot(x_tss, y_A, 'ro', label="Original Data")
+    plt.plot(x_tss, y_A, 'b*', label="Data")
+    strformat = 'a: {0:.3f}'
+    fmt = '{0:.2f}'
 
 	# If there is more than one index in the cloud_change list, this means
 	#  that the cloudtype changed more than one time, which is not 
@@ -145,19 +147,20 @@ def power_fit_coeffs(A,tss,cloudtype):
 	#  did not change, so plot the fitted function, when only one 
 	#  fit was needed
     elif len(cloud_change) == 0:
-        plt.plot(x_tss, power_func(x_tss, *popt), label="Fitted Curve")
+        plt.plot(x_tss, power_func(x_tss, *popt), label=strformat.format(a))
 
 	# Otherwise if the length of the cloud_change list is 1, there was one
 	#  change in cloudtype. This is possible, and we will plot two fits 
     else:
         # Plot the first best fit function
-        plt.plot(x_tss1, power_func(x_tss1, *popt1), label="Fitted Curve 1")
+        plt.plot(x_tss1, power_func(x_tss1, *popt1), label=strformat.format(a[0]))
 
         # Plot the second best fit function
-        plt.plot(x_tss2, power_func(x_tss2, *popt2), label="Fitted Curve 2")
+        plt.plot(x_tss2, power_func(x_tss2, *popt2), label=strformat.format(a[1]))
 
     plt.xlabel('Time (s)')
     plt.ylabel('Area (m^2)')
+    plt.legend(loc = 'lower right', title = 'c*exp(a*time)')
     plt.title('Time vs. Area with Fitted Power Curve')
 
     return x_tss, y_A, power_func, c, a, one_stdev_err

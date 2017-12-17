@@ -9,9 +9,9 @@ Contact: Marcus Bursik mib@buffalo.edu
 
 import numpy as np			# numpy for array operations
 
-def get_tss(Y, D, H, M, S, Y0, D0, H0, M0, S0):
+def get_tss(Y, O, D, H, M, S, Y0, O0, D0, H0, M0, S0):
     """
-    def get_tss(Y, D, H, M, S, Y0, D0, H0, M0, S0): tss = get_tss(Y, D, H, M, S, Y0, D0, H0, M0, S0)
+    def get_tss(Y, O, D, H, M, S, Y0, O0, D0, H0, M0, S0): tss = get_tss(Y, O, D, H, M, S, Y0, D0, H0, M0, S0)
 
     Description: This function gets the time in seconds from the beginning 
      of the eruption.
