@@ -1,7 +1,7 @@
 """
 Name: get_info_from_txt
-Version: 0.41
-Date: 07 December 2017
+Version: 0.5
+Date: 16 December 2017
 Author: Rose M. Rustowicz, Solene Pouget, Marcus Bursik
 Concept: Solene Pouget, Emile Jansons, Marcus Bursik
 Contact: Marcus Bursik mib@buffalo.edu
@@ -31,21 +31,21 @@ def get_info_from_txt(data_filename, delimeter = ' '):
         preserves '0' characters (YYYYOODDHHMMSS)
       'treal' - Vector of time at which each image was taken
         (will not follow format above bc float)
-      'A' - Vector of area of the ash cloud in each image, as detected 
-        by forecaster or COTAC or otherwise (km^2)
+      'A' - Vector of area of ash cloud in each image, as detected 
+        by forecaster, VOLCAT or COTAC or otherwise (km^2)
       'D1' - Vector of long diameter measurements of the ash cloud in each 
         image (km)
       'D2' - Vector of short, orthogonal diameter measurements of the ash 
         cloud in eachimage (km)
       'Ph' - Vector of plume spreading height at the level of neutral 
-        buoyancy  (m)
+        buoyancy  (input ft -> m)
       'Tb' - Vector of plume spreading temperature at the level of neutral 
-        buoyancy, "brightness temperature" in each image (K)
-      'P0' - Vector of pressure at that height (K), from radiosonde, hPa
-      'maxPh' - Vector of maximum plume height (m) 
-      'maxt' - Vector of brightness temperature at maximum plume height (K)
-      'Pp' - Vector of pressure of plume  at maxPh from NWP, radiosonde, etc.(hPa)
-      'Z' - Vector of height at which windspeed is known (m)
+        buoyancy, "brightness temperature" in each image (input C -> K)
+      'P0' - Vector of pressure at that height, from sounding (hPa)
+      'maxPh' - Vector of maximum plume height at which T = maxt (input ft -> m) 
+      'maxt' - Vector of brightness temperature at maximum plume height (input C -> K)
+      'Pp' - Vector of pressure of plume at maxPh from sounding (hPa)
+      'Z' - Vector of height at which windspeed is known (input ft -> m)
       'uk' - Vector of wind speed in knots at Z (knots)
       'u' - Vector of wind speed in m/s at Z (m/s)
     """
