@@ -1,7 +1,7 @@
 """
 Name: power_fit_coeffs
 Version: 0.5
-Date: 13 December 2017
+Date: 6 February 2018
 Author: Rose M. Rustowicz, Solene Pouget, Marcus Bursik
 Concept: Solene Pouget, Emile Jansons, Marcus Bursik
 Contact: Marcus Bursik mib@buffalo.edu
@@ -20,7 +20,7 @@ np.seterr(invalid = 'ignore')
 # Create an error for when the cloudtype changes more than once, 
 #  from umbrella cloud <--> downwind plume
 class CloudtypeError(Exception):
-    pass
+    sys.exc_clear()
 
 # Function to fit with x, y
 def power_func(x_tss,c,a):
@@ -78,18 +78,9 @@ def power_fit_coeffs(A,tss,cloudtype):
 
 	print 'cloud_change', cloud_change
 
-	# If there is more than one index in the cloud_change list, this means
-	#  that the cloudtype changed more than one time, which is 
-	#  unphysical. If this is the case, an error is raised
-    if len(cloud_change) > 1:
-        raise CloudtypeError("The ash cloud in the images indicates more\
-		  than one change of cloudtype from umbrella cloud <--> downwind\
-		  plume. In the correct case, only one type of change, if any, is\
- 		  expected: from umbrella cloud --> downwind plume.")
-
 	# If the length of the cloud_change list is 0, the cloudtype 
 	#  did not change, so fit the data with one best fit power law equation
-    elif len(cloud_change) == 0:
+    if len(cloud_change) == 0:
         popt, pcov = curve_fit(power_func, x_tss, y_A)
         c = popt[0]
         a = popt[1]
@@ -134,19 +125,10 @@ def power_fit_coeffs(A,tss,cloudtype):
     strformat = 'a: {0:.3f}'
     fmt = '{0:.2f}'
 
-	# If there is more than one index in the cloud_change list, this means
-	#  that the cloudtype changed more than one time, which is not 
-	#  physical. If this is the case, an error is raised
-    if len(cloud_change) > 1:
-        raise CloudtypeError("The ash cloud in the images indicates more\
-		  than one change of cloudtype from umbrella cloud <--> downwind\
- 		  plume. Physically, only one type of change, if any,\
-		  is expected: from umbrella cloud --> downwind plume.")
-
 	# If the length of the cloud_change list is 0, the cloudtype 
 	#  did not change, so plot the fitted function, when only one 
 	#  fit was needed
-    elif len(cloud_change) == 0:
+    if len(cloud_change) == 0:
         plt.plot(x_tss, power_func(x_tss, *popt), label=strformat.format(a))
 
 	# Otherwise if the length of the cloud_change list is 1, there was one
@@ -155,8 +137,10 @@ def power_fit_coeffs(A,tss,cloudtype):
         # Plot the first best fit function
         plt.plot(x_tss1, power_func(x_tss1, *popt1), label=strformat.format(a[0]))
 
-        # Plot the second best fit function
-        plt.plot(x_tss2, power_func(x_tss2, *popt2), label=strformat.format(a[1]))
+        # Plot the second best fit function.  Temporarily disabled, until figure
+        # out how to handle decreasing area 6 Feb 2018
+        # plt.plot(x_tss2, power_func(x_tss2, *popt2), label=strformat.format(a[1]))
+            
 
     plt.xlabel('Time (s)')
     plt.ylabel('Area (m^2)')
@@ -164,3 +148,14 @@ def power_fit_coeffs(A,tss,cloudtype):
     plt.title('Time vs. Area with Fitted Power Curve')
 
     return x_tss, y_A, power_func, c, a, one_stdev_err
+
+    # Finally, if there was > 1 cloud change, let the operator know.	
+    # If there is more than one index in the cloud_change list, this means
+	#  that the cloudtype changed more than one time, which is not 
+	#  physical. If this is the case, an error is raised
+    if len(cloud_change) > 1:
+        raise CloudtypeError("The ash cloud in the images indicates more\
+		  than one change of cloudtype from umbrella cloud <--> downwind\
+ 		  plume. Physically, only one type of change, if any,\
+		  is expected: from umbrella cloud --> downwind plume.")
+
