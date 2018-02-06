@@ -1,7 +1,7 @@
 """
 Name: get_MERs_cloudtype
 Version: 0.5
-Date: 15 December 2017
+Date: 6 February 2018
 Author: Rose M. Rustowicz, Solene Pouget, Marcus Bursik
 Concept: Solene Pouget, Emile Jansons, Marcus Bursik
 Contact: Marcus Bursik mib@buffalo.edu
@@ -100,7 +100,7 @@ def get_MERs_cloudtype(D1, D2, rhobar, tss, A, N, u, rhogas):
  
                 if MERpl[cur_img] < 0:
                     print "sgn(dA/dt) = -1 => Dissipating."
-                    MERpl[cur_img] = np.nan
+                    MERpl[cur_img] = 0.0
 
                 # MER of particles into DWP, continuous release
                 if rhobar[cur_img] > rhogas[cur_img]:
@@ -110,7 +110,7 @@ def get_MERs_cloudtype(D1, D2, rhobar, tss, A, N, u, rhogas):
                     MERpa[cur_img] = MERpl[cur_img]
                     
                 if MERpa[cur_img] < 0:
-                    MERpa[cur_img] = np.nan
+                    MERpa[cur_img] = 0.0
                 else:
                     print "Mass flux of ash into cloud = ", MERpa[cur_img], " kg/s"
 
@@ -139,14 +139,14 @@ def get_MERs_cloudtype(D1, D2, rhobar, tss, A, N, u, rhogas):
 
                 if MERpl[cur_img] < 0:
                     print "sgn(dA/dt) = -1 => Cloud dissipating."
-                    MERpl[cur_img] = np.nan
+                    MERpl[cur_img] = 0.0
 
                 # Mass of umbrella cloud assuming emission stopped
                 MERpli[cur_img] = ((math.sqrt(math.pi) * rhobar[cur_img]) / (3. * L[cur_img] * N[cur_img])) * \
                   (((A[cur_img]*1000000.)**(3./2.) - (A[cur_img-1]*1000000.)**(3./2.)) / (tss[cur_img] - tss[cur_img-1]))
 
                 if MERpli[cur_img] < 0:
-                    MERpli[cur_img] = np.nan
+                    MERpli[cur_img] = 0.0
                           
                 # MER of particles into umbrella cloud, continuous release
                 if rhobar[cur_img] > rhogas[cur_img]:
@@ -156,9 +156,9 @@ def get_MERs_cloudtype(D1, D2, rhobar, tss, A, N, u, rhogas):
 
 
                 if MERpa[cur_img] < 0:
-                    MERpa[cur_img] = np.nan
+                    MERpa[cur_img] = 0.0
                 else:
-                    print "Mass flux particles into cloud = ", MERpa[cur_img], " kg/s"
+                    print "Mass flux ash into cloud = ", MERpa[cur_img], " kg/s"
                         
                 # Mass of particles in umbrella cloud, instantaneous release
                 if rhobar[cur_img] > rhogas[cur_img]:
@@ -167,7 +167,7 @@ def get_MERs_cloudtype(D1, D2, rhobar, tss, A, N, u, rhogas):
                     MERpai[cur_img] = MERpli[cur_img]
 
                 if MERpai[cur_img] < 0:
-                    MERpai[cur_img] = np.nan
+                    MERpai[cur_img] = 0.0
 
         if cur_img == 0:
             # Do nothing with MER because no previous to compare 
@@ -192,8 +192,8 @@ def get_MERs_cloudtype(D1, D2, rhobar, tss, A, N, u, rhogas):
         std_MERp = np.nanstd(MERpa)
     else:
         std_MERp = 0.0
-    print "Tot. mass particles = ", int(np.max(mass)), " kg"
-    print "Est. volume (DRE) = ", int(np.max(mass)) / 1000. / 1000000000., " cu km"
+    print "Tot. mass ash = ", np.max(mass), " kg"
+    print "Est. volume (DRE) = ", np.max(mass) / 1000. / 1000000000., " cu km"
     print "MERp(t) = ", list(MERpa), " kg/s"
     print "mean MERp = ", int(mean_MERp), " +/- ", int(std_MERp), " kg/s "
     print "eruption duration = ", int(np.amin([tss[len(D1)-1],tss[np.argmax(mass)]])), " s" 

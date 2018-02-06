@@ -2,7 +2,7 @@
 Name: main_cloudtype
 Description: Wrapper program to get data and calculate mass eruption rate (MER) for a growing volcanic cloud.
 Version: 0.4
-Date: 23 November 2017
+Date: 6 February 2018
 Author: Rose M. Rustowicz, Solene Pouget, Marcus Bursik
 Concept: Solene Pouget, Emile Jansons, Marcus Bursik
 Contact: Marcus Bursik mib@buffalo.edu
@@ -17,6 +17,7 @@ import csv
 from scipy.optimize import curve_fit
 from scipy import stats
 import scipy
+import datetime
 
 # Import modules in the src directory
 from get_MERs_cloudtype import *
@@ -33,19 +34,25 @@ from write_MER_data import *
 
 if __name__ == '__main__':
 
-    # Define the current path
+    # Define the current path, time
     path = os.getcwd()
+    now = datetime.datetime.now()
 
     # Specify the needed input filenames
 
     # Filename containing majority of data
-    data_filename = path[:-4] + '/test/' + 'data_manam_2015_ftc.ssv'
+    data_filename = path[:-4] + '/data/' + 'Tinakula/' + 'test_tinakula_1_ftc.ssv'
+    print "Run time = ", str(now)
+    print "Input file = ", data_filename
 
-    # Filename containing the start time of the eruption, in form ?YYDDDMMHHSS
+    # Filename containing the start time of the eruption
+    # if start time from other than image data, in form ?YYDDDMMHHSS
     start_filename = 'None'
-       # start_filename = path[:-4] + '/test/' + 'start_downwind.txt'
+    # start_filename = path[:-4] + '/test/' + 'start_rinjani_2016.txt'
+    if (start_filename != 'None'):
+        print "Start time file = ", start_filename
+    print " "
 
-    
     # Specify the needed output filenames
 
     # Filename to store probability data
