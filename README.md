@@ -36,7 +36,7 @@ Among the files in the test folder are `test_tinakula_1_ftc.ssv` and `data_manam
  
 All results files from running a test for either Tinakula or Manam are saved in the results folder. 
 
-In normal operation, separate "input" and "output" folders can be made, and used and referenced to in `main_cloudtype` or `main_diameters`.
+In normal operation, separate "input" and "output" folders can be made, and used and referenced to in `main_cloudtype`.
 
 THE INPUT FILE
 The example input file names contain the string "ftc" because input data for height are in ft, and for temperature are in celsius.  This is an artifact of the set up of Visual Weather at VAAC Darwin, but is also useful for aviation.
