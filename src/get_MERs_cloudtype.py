@@ -80,7 +80,7 @@ def get_MERs_cloudtype(D1, D2, rhobar, tss, A, N, u, rhogas):
 
         if (ratio > 3.):
             # Identify lambda value
-            L[cur_img] = 0.845
+            L[cur_img] = 0.845 # Bursik et al estimate 0.83
             # Identify cloud type
             cloudtype[cur_img] = 1
 
@@ -99,7 +99,7 @@ def get_MERs_cloudtype(D1, D2, rhobar, tss, A, N, u, rhogas):
                     print "Cloud is spreading as a downwind plume."
  
                 if MERpl[cur_img] < 0:
-                    print "sgn(dA/dt) = -1 => Dissipating."
+                    print "Dissipating. Eruption stopped."
                     MERpl[cur_img] = 0.0
 
                 # MER of particles into DWP, continuous release
@@ -107,16 +107,17 @@ def get_MERs_cloudtype(D1, D2, rhobar, tss, A, N, u, rhogas):
                     MERpa[cur_img] = MERpl[cur_img] * (1 - (rhogas[cur_img]/rhobar[cur_img]))
                     
                 else:
-                    MERpa[cur_img] = MERpl[cur_img]
-                    
-                if MERpa[cur_img] < 0:
                     MERpa[cur_img] = 0.0
-                else:
-                    print "Mass flux of ash into cloud = ", MERpa[cur_img], " kg/s"
+                    
+#                if MERpa[cur_img] < 0:
+#                    print "sgn(dA/dt) = -1 => Dissipating."                    
+#                    MERpa[cur_img] = 0.0
+#                else: 
+                print "Mass flux of ash into cloud = ", MERpa[cur_img], " kg/s"
 
         else:
             # Identify lambda value
-            L[cur_img] = 1
+            L[cur_img] = 1 # possibly should be 0.2 (Suzuki and Koyaguchi)
             # Identify cloud type
             cloudtype[cur_img] = 2
 
@@ -131,43 +132,45 @@ def get_MERs_cloudtype(D1, D2, rhobar, tss, A, N, u, rhogas):
                 # Cloud is spreading as an umbrella cloud
                 # Calculate MER
                 # MER of umbrella cloud, continuous release
-                MERpl[cur_img] = ((2. * rhobar[cur_img]) / (3. * (math.sqrt(math.pi)) * L[cur_img] * N[cur_img])) * \
+                MERpl[cur_img] = (2. * rhobar[cur_img] / (3. * math.sqrt(math.pi) * L[cur_img] * N[cur_img])) * \
                   (((A[cur_img]*1000000.)**(3./2.) - (A[cur_img-1]*1000000.)**(3./2.)) / (tss[cur_img]**2 - tss[cur_img-1]**2))
 
                 if MERpl[cur_img] >= 0:
                     print "Cloud is spreading as an umbrella cloud."
 
                 if MERpl[cur_img] < 0:
-                    print "sgn(dA/dt) = -1 => Cloud dissipating."
+                    print "Cloud dissipating. Eruption stopped."
                     MERpl[cur_img] = 0.0
 
-                # Mass of umbrella cloud assuming emission stopped
-                MERpli[cur_img] = ((math.sqrt(math.pi) * rhobar[cur_img]) / (3. * L[cur_img] * N[cur_img])) * \
+                # Mass of umbrella cloud assuming instantaneous
+                MERpli[cur_img] = (2. * rhobar[cur_img]) / (3. * math.sqrt(math.pi) * L[cur_img] * N[cur_img]) * \
                   (((A[cur_img]*1000000.)**(3./2.) - (A[cur_img-1]*1000000.)**(3./2.)) / (tss[cur_img] - tss[cur_img-1]))
 
                 if MERpli[cur_img] < 0:
+                    print "Cloud dissipating. Eruption stopped."
                     MERpli[cur_img] = 0.0
                           
                 # MER of particles into umbrella cloud, continuous release
                 if rhobar[cur_img] > rhogas[cur_img]:
                     MERpa[cur_img] = MERpl[cur_img] * (1 - (rhogas[cur_img] / rhobar[cur_img]))
                 else:
-                    MERpa[cur_img] = MERpl[cur_img]
-
-
-                if MERpa[cur_img] < 0:
                     MERpa[cur_img] = 0.0
-                else:
-                    print "Mass flux ash into cloud = ", MERpa[cur_img], " kg/s"
+
+#                if MERpa[cur_img] < 0:
+#                    MERpa[cur_img] = 0.0
+#                else:
+                print "Mass flux ash into cloud = ", MERpa[cur_img], " kg/s"
                         
                 # Mass of particles in umbrella cloud, instantaneous release
                 if rhobar[cur_img] > rhogas[cur_img]:
                     MERpai[cur_img] = MERpli[cur_img] * (1- (rhogas[cur_img] / rhobar[cur_img]))
                 else:
-                    MERpai[cur_img] = MERpli[cur_img]
+                    MERpai[cur_img] = 0.0
 
                 if MERpai[cur_img] < 0:
                     MERpai[cur_img] = 0.0
+                    # Uncomment next line to get instantaneous result
+                #print "If instantaneous: Ash mass = ", MERpai[cur_img], " kg"
 
         if cur_img == 0:
             # Do nothing with MER because no previous to compare 
@@ -176,8 +179,10 @@ def get_MERs_cloudtype(D1, D2, rhobar, tss, A, N, u, rhogas):
             
         else:
             mass_cur_img = MERpa[cur_img] * (tss[cur_img] - tss[cur_img - 1])
-            mass[cur_img] = mass_cur_img + mass[cur_img - 1]
-
+            if mass_cur_img > 0.0:
+                mass[cur_img] = mass_cur_img + mass[cur_img - 1]
+            else:
+                continue
 
 	# Define a *test* vector for cloudtype to test what happens 
 	#  when it changes
@@ -193,10 +198,13 @@ def get_MERs_cloudtype(D1, D2, rhobar, tss, A, N, u, rhogas):
     else:
         std_MERp = 0.0
     print "Tot. mass ash = ", np.max(mass), " kg"
-    print "Est. volume (DRE) = ", np.max(mass) / 1000. / 1000000000., " cu km"
+    print "Est. volume (DRE) = ", np.max(mass) / 2500. / 1000000000., " cu km"
     print "MERp(t) = ", list(MERpa), " kg/s"
     print "mean MERp = ", int(mean_MERp), " +/- ", int(std_MERp), " kg/s "
-    print "eruption duration = ", int(np.amin([tss[len(D1)-1],tss[np.argmax(mass)]])), " s" 
+    if tss[len(D1)-1] == tss[np.argmax(mass)]:
+        print "eruption duration .ge. ", int(np.amin([tss[len(D1)-1],tss[np.argmax(mass)]])), " s" 
+    else:
+        print "eruption duration = ", int(np.amin([tss[len(D1)-1],tss[np.argmax(mass)]])), " s"         
     print "**********************************************************"
 
     return L, MERpl, MERpli, MERpa, MERpai, cloudtype, mass

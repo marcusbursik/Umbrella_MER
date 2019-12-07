@@ -43,4 +43,5 @@ def get_rhos(P0,  Pp, maxT, Tb, Rd = 287.):
     print "Estimated bulk density of cloud = ", rhobar
     print "Estimated gas density = ", rhogas    
     print "---------------------------------------------------------"
+
     return rhobar, rhogas

@@ -83,10 +83,10 @@ def get_info_from_txt(data_filename, delimeter = ' '):
     D2 = data_matrix[-15:,3]            # Diameter 2 (km)
     Ph = data_matrix[-15:,4] * 0.3048   # Plume spreading height (input ft -> m)
     Tb = data_matrix[-15:,5] + 273.15   # Plume brightness temperature (input C -> K)
-    P0 = data_matrix[-15:,6]            # Pressure at height Ph (hPa)
+    P0 = data_matrix[-15:,6] * 100.     # Pressure at height Ph (input hPa -> Pa)
     maxPh = data_matrix[-15:, 7] * 0.3048 # Max plume height where maxT (input ft -> m)
     maxT = data_matrix[-15:,8] + 273.15 # (Min) temp at maxPh (input C -> K)
-    Pp = data_matrix[-15:,9]            # Pressure at maxPh (hPa)
+    Pp = data_matrix[-15:,9] * 100.     # Pressure at maxPh (input hPa -> Pa)
     Z = data_matrix[-15:,10] * 0.3048   # Plume height where wind speed measured (input ft -> m)
     uk = data_matrix[-15:,11]           # Wind speed (knots)
 

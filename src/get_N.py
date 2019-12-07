@@ -30,7 +30,7 @@ def get_N(Tb, maxT, Ph, maxPh, g = -9.81):
     """
 
     # Calculate N
-    if (maxT.any() - Tb.any()) > 0:
+    if (np.subtract(maxT.any(), Tb.any(), dtype=np.float)) > 0: 
         N = np.sqrt(-(g/Tb) * ((maxT - Tb) / (maxPh - Ph)))
     else:
         N = np.full(shape=len(Tb), fill_value=0.035, dtype=float)

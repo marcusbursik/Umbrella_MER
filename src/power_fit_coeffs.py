@@ -121,7 +121,7 @@ def power_fit_coeffs(A,tss,cloudtype):
 
     # Now plot!
 
-    plt.plot(x_tss, y_A, 'b*', label="Data")
+    plt.loglog(x_tss, y_A, 'b*', label="Data")
     strformat = 'a: {0:.3f}'
     fmt = '{0:.2f}'
 
@@ -129,13 +129,13 @@ def power_fit_coeffs(A,tss,cloudtype):
 	#  did not change, so plot the fitted function, when only one 
 	#  fit was needed
     if len(cloud_change) == 0:
-        plt.plot(x_tss, power_func(x_tss, *popt), label=strformat.format(a))
+        plt.loglog(x_tss, power_func(x_tss, *popt), label=strformat.format(a))
 
 	# Otherwise if the length of the cloud_change list is 1, there was one
 	#  change in cloudtype. This is possible, and we will plot two fits 
     else:
         # Plot the first best fit function
-        plt.plot(x_tss1, power_func(x_tss1, *popt1), label=strformat.format(a[0]))
+        plt.loglog(x_tss1, power_func(x_tss1, *popt1), label=strformat.format(a[0]))
 
         # Plot the second best fit function.  Temporarily disabled, until figure
         # out how to handle decreasing area 6 Feb 2018
@@ -144,7 +144,7 @@ def power_fit_coeffs(A,tss,cloudtype):
 
     plt.xlabel('Time (s)')
     plt.ylabel('Area (m^2)')
-    plt.legend(loc = 'lower right', title = 'c*exp(a*time)')
+    plt.legend(loc = 'lower right', title = 'area=c*time^a')
     plt.title('Time vs. Area with Fitted Power Curve')
 
     return x_tss, y_A, power_func, c, a, one_stdev_err
