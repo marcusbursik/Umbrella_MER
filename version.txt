@@ -1,8 +1,15 @@
-Version: 0.4
-Date: 26 November 2017
+Version: 0.5
+Date: 07 December 2017
 Coding: Rose M. Rustowicz, Solene Pouget, Marcus Bursik
 Concept: Solene Pouget, Emile Jansons, Marcus Bursik
 Contact: Marcus Bursik mib@buffalo.edu
+
+Version 0.5:
+
+Changed so that rhobar, rhogas and N now calculated from brightness temperatures and 
+sounding available to forecaster.  These are different therefore than in Pouget et
+al (2013).  No longer therefore uses virtual potential temperature, but need to get
+pressure at NBL, P0.  
 
 Version 0.4:
 
