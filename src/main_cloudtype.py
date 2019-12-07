@@ -41,14 +41,14 @@ if __name__ == '__main__':
     # Specify the needed input filenames
 
     # Filename containing majority of data
-    data_filename = path[:-4] + '/data/' + 'Kelud/' + 'data_kelud_ftc.ssv'
+    data_filename = path[:-4] + '/test/' + 'test_tinakula_1_ftc.ssv'
     print "Run time = ", str(now)
     print "Input file = ", data_filename
 
     # Filename containing the start time of the eruption
     # if start time from other than image data, in form ?YYDDDMMHHSS
     start_filename = 'None'
-    # start_filename = path[:-4] + '/test/' + 'start_rinjani_2016.txt'
+    # start_filename = path[:-4] + '/test/' + 'start.txt' # This is for 20 Oct 2015 Manam
     if (start_filename != 'None'):
         print "Start time file = ", start_filename
     print " "
@@ -56,10 +56,10 @@ if __name__ == '__main__':
     # Specify the needed output filenames
 
     # Filename to store probability data
-    probabilities_txt_filename  = path[:-4] + '/output/' + 'probabilities_kelud.txt'
+    probabilities_txt_filename  = path[:-4] + '/results/' + 'probabilities.txt'
 
     # Filename to store MER data
-    MER_csv_file = path[:-4] + '/output/' + 'MER_data_kelud.csv'
+    MER_csv_file = path[:-4] + '/results/' + 'MER_data.csv'
 
 
     # Get info from txt
@@ -86,10 +86,10 @@ if __name__ == '__main__':
     # Plot Time vs. Area
     plot_tss_vs_A(tss, A, L, N, u, rhobar)
 
-    # Get best-fit power function probabilities
-    get_probabilities(c, a, one_stdev_err, probabilities_txt_filename)
     # Get and plot power function coefficients 
     [ x_tss, y_A, power_func, c, a, one_stdev_err ] = power_fit_coeffs(A,tss,cloudtype)
+    # Get best-fit power function probabilities
+    get_probabilities(c, a, one_stdev_err, probabilities_txt_filename)
 
     # Plot time vs. MER
     # plotMER(MERpl, tss, 'Time(s)', 'MER of cloud (kg/s)', 'Time vs. MER of cloud')
