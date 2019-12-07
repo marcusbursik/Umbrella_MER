@@ -1,4 +1,4 @@
-#Umbrella_MER
+# Umbrella_MER
 
 Version: 0.5.1 
 
@@ -10,7 +10,7 @@ Concept: Solene Pouget, Emile Jansons, Marcus Bursik
 
 Contact: Marcus Bursik mib@buffalo.edu
 
-##INTRODUCTION
+## INTRODUCTION
 
 This software is written to estimate mass eruption rate, or mass flux of ash into ash cloud
 given a sequence of satellite images in which the ash cloud objects have been identified.
@@ -18,7 +18,7 @@ See version.txt for information on current status of version.  Built in Anaconda
 needs scipy, numpy and cv2 (image processing).  See build_environment.txt for (at least) the
 initial build environment.
 
-##RUNNING
+## RUNNING
 
 To run the programs, you must be in the src directory. 
 
@@ -48,37 +48,37 @@ The input file is a "space separated value" file (.ssv).  A "comma separated val
 The units for the input variables are (screen name at Darwin VAAC then
 python name; arrow indicates change in program to calculated units):
 
-‘Time’      'treal_string' - A string of the time the image was taken, 
-preserves '0' characters (YYYYOODDHHMMSS)
+`Time`      `treal_string` - A string of the time the image was taken, 
+preserves `0` characters (YYYYOODDHHMMSS)
 
-——    	    'treal' - Vector of time at which each image was taken
-        (will not follow format above bc float)
+`——`    	    `treal` - Vector of time at which each image was taken
+        (will not follow format above because a float)
 
-‘Area’      'A' - Vector of area of ash cloud in each image, as detected 
+`Area`      `A` - Vector of area of ash cloud in each image, as detected 
         by forecaster, VOLCAT or COTAC or otherwise (km^2)
 
-‘D1’        'D1' - Vector of long diameter measurements of the ash cloud in each 
+`D1`        `D1` - Vector of long diameter measurements of the ash cloud in each 
         image (km)
 
-‘D2’        'D2' - Vector of short, orthogonal diameter measurements of the ash 
+`D2`        `D2` - Vector of short, orthogonal diameter measurements of the ash 
         cloud in eachimage (km)
 
-‘HIE’       'Ph' - Vector of plume spreading height at the level of neutral 
+`HIE`       `Ph` - Vector of plume spreading height at the level of neutral 
         buoyancy  (input ft -> m)
 
-‘BTIE’      'Tb' - Vector of plume spreading temperature at the level of neutral 
+`BTIE`      `Tb` - Vector of plume spreading temperature at the level of neutral 
         buoyancy, "brightness temperature" in each image (input C -> K)
 
-‘PIE’       'P0' - Vector of pressure at that height, from sounding (input hPa -> Pa)
+`PIE`       `P0` - Vector of pressure at that height, from sounding (input hPa -> Pa)
 
-‘HCT’       'maxPh' - Vector of maximum plume height at which T = maxt (input ft -> m) 
+`HCT`       `maxPh` - Vector of maximum plume height at which T = maxt (input ft -> m) 
 
-‘BTCT’      'maxt' - Vector of brightness temperature at maximum plume height (input C -> K)
+`BTCT`      `maxt` - Vector of brightness temperature at maximum plume height (input C -> K)
 
-‘PCT’       'Pp' - Vector of pressure of plume at maxPh from sounding (input hPa -> Pa)
+`PCT`       `Pp` - Vector of pressure of plume at maxPh from sounding (input hPa -> Pa)
 
-‘HW’        'Z' - Vector of height at which windspeed is known (input ft -> m)
+`HW`        `Z` - Vector of height at which windspeed is known (input ft -> m)
 
-‘WK’        'uk' - Vector of wind speed in knots at Z (knots)
+`WK`        `uk` - Vector of wind speed in knots at Z (knots)
 
-——          'u' - Vector of wind speed in m/s at Z (m/s)
+`——`         `u` - Vector of wind speed in m/s at Z (m/s)
