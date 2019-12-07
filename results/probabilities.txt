@@ -1,28 +1,59 @@
-c, constant = 1.02276198066
-stdev in c = 145.501374504 
-a, alpha = 1.08784432198
-stdev in a = 16.939369119
-1st run: probability that alpha is 4/9 is 0.471512288052
-2nd run: probability that alpha is 4/9 is 0.129372248246
-Probability does not converge to two significant figures. 
-1st run: t-statistic that alpha is 4/9 is 0.722791170029
-2nd run: t-statistic that alpha is 4/9 is -1.52932772654
-2nd run: t-statistic that alpha is 4/9 is -1.52932772654
-1st run: probability that alpha is 10/9 is 0.509501515329
-2nd run: probability that alpha is 10/9 is 0.490348539663
+RESULTS FOR THE FIRST FIT:
+c, constant = 21.899556200616544
+stdev in c = 25.02962433493736 
+a, alpha = 0.74021717289944
+stdev in a = 0.07278099014063355
+1st run: probability that alpha is 4/9 is 8.664164501967271e-63
+2nd run: probability that alpha is 4/9 is 1.99153971975423e-65
 Probability does converge to two significant figures. 
-1st run: t-statistic that alpha is 10/9 is -0.662012141266
-2nd run: t-statistic that alpha is 10/9 is 0.692333666951
-2nd run: t-statistic that alpha is 10/9 is 0.692333666951
-1st run: probability that alpha is 4/3 is 0.0522894031167
-2nd run: probability that alpha is 4/3 is 0.341705460643
-Probability does not converge to two significant figures. 
-1st run: t-statistic that alpha is 4/3 is -1.96438267195
-2nd run: t-statistic that alpha is 4/3 is 0.955394294919
-2nd run: t-statistic that alpha is 4/3 is 0.955394294919
-1st run: probability that alpha is 3/2 is 0.520671776026
-2nd run: probability that alpha is 3/2 is 0.593608284623
+1st run: t-statistic that alpha is 4/9 is 39.86931300051145
+2nd run: t-statistic that alpha is 4/9 is 42.543275221551156
+2nd run: t-statistic that alpha is 4/9 is 42.543275221551156
+1st run: probability that alpha is 10/9 is 2.723018117754492e-78
+2nd run: probability that alpha is 10/9 is 7.472177216136573e-75
 Probability does converge to two significant figures. 
-1st run: t-statistic that alpha is 3/2 is 0.644608523006
-2nd run: t-statistic that alpha is 3/2 is 0.535350195344
-2nd run: t-statistic that alpha is 3/2 is 0.535350195344
+1st run: t-statistic that alpha is 10/9 is -58.07666837573959
+2nd run: t-statistic that alpha is 10/9 is -53.477791662106426
+2nd run: t-statistic that alpha is 10/9 is -53.477791662106426
+1st run: probability that alpha is 4/3 is 8.625856938149762e-88
+2nd run: probability that alpha is 4/3 is 7.1009874751924e-89
+Probability does converge to two significant figures. 
+1st run: t-statistic that alpha is 4/3 is -72.81074732173714
+2nd run: t-statistic that alpha is 4/3 is -74.70458522732933
+2nd run: t-statistic that alpha is 4/3 is -74.70458522732933
+1st run: probability that alpha is 3/2 is 1.675268760998333e-101
+2nd run: probability that alpha is 3/2 is 1.706299079068863e-104
+Probability does converge to two significant figures. 
+1st run: t-statistic that alpha is 3/2 is -100.59641424128276
+2nd run: t-statistic that alpha is 3/2 is -107.91407756543262
+2nd run: t-statistic that alpha is 3/2 is -107.91407756543262
+
+RESULTS FOR THE SECOND FIT:
+c, constant = 0.4706154588306014
+stdev in c = 1.6246651881168206 
+a, alpha = 1.1152931675036037
+stdev in a = 0.4520884394138204
+1st run: probability that alpha is 4/9 is 1.1098750606744655e-26
+2nd run: probability that alpha is 4/9 is 3.7979009634468434e-28
+Probability does converge to two significant figures. 
+1st run: t-statistic that alpha is 4/9 is 14.72439192741546
+2nd run: t-statistic that alpha is 4/9 is 14.72439192741546
+2nd run: t-statistic that alpha is 4/9 is 14.72439192741546
+1st run: probability that alpha is 10/9 is 0.521608300321803
+2nd run: probability that alpha is 10/9 is 0.7645764012144675
+Probability does not converge to two significant figures. 
+1st run: t-statistic that alpha is 10/9 is 0.643158344877271
+2nd run: t-statistic that alpha is 10/9 is 0.643158344877271
+2nd run: t-statistic that alpha is 10/9 is 0.643158344877271
+1st run: probability that alpha is 4/3 is 7.007601173331578e-10
+2nd run: probability that alpha is 4/3 is 6.930745124183567e-07
+Probability does converge to two significant figures. 
+1st run: t-statistic that alpha is 4/3 is -6.828165388273416
+2nd run: t-statistic that alpha is 4/3 is -6.828165388273416
+2nd run: t-statistic that alpha is 4/3 is -6.828165388273416
+1st run: probability that alpha is 3/2 is 9.166684251332224e-10
+2nd run: probability that alpha is 3/2 is 8.514162290051254e-13
+Probability does converge to two significant figures. 
+1st run: t-statistic that alpha is 3/2 is -6.771378182167355
+2nd run: t-statistic that alpha is 3/2 is -6.771378182167355
+2nd run: t-statistic that alpha is 3/2 is -6.771378182167355
