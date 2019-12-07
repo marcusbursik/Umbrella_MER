@@ -1,8 +1,12 @@
-Version: 0.5
-Date: 07 December 2017
+Version: 0.5.1
+Date: 06 December 2019
 Coding: Rose M. Rustowicz, Solene Pouget, Marcus Bursik
 Concept: Solene Pouget, Emile Jansons, Marcus Bursik
 Contact: Marcus Bursik mib@buffalo.edu
+
+Version 0.5.1: 
+
+Minor fixes.  Output now more coherent and organized better.
 
 Version 0.5:
 
